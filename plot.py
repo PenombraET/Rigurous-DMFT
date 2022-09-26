@@ -5,10 +5,13 @@ import utils as ut
 
 
 parameters = ut.init_parameters()
-parameters["m_0"] = 0.2
-parameters["alpha"] = 3
+parameters["m_0"] = 0.025
+parameters["D"] = 2000
+parameters["alpha"] = 0.9
 parameters["b"] = 1.0
-parameters["lambd"] = 0.5
+parameters["lambd"] = 1.0
+parameters["dt"] = 0.04
+parameters["T"] = 50
 
 iter_start = 20
 iter_end = 30

@@ -43,10 +43,8 @@ def plot_magnetisation_simulations(parameters):
         parameters (dict): parameters dictionary
     """
 
-    m_0 = parameters["m_0"]
-    alpha = parameters["alpha"]
-    b = parameters["b"]
-    lambd = parameters["lambd"]
+    dt = parameters["dt"]
+    T = parameters["T"]
 
-    df = pd.read_csv(f"data/simulationsM{m_0}A{alpha}B{b}L{lambd}.csv")
-    plt.plot(df["time"], df["mag_avg"], color="red", lw=2, label="Simulation")
+    m = ut.load_sim(parameters)
+    plt.errorbar(np.linspace(dt, T * dt, int(T)), m.mean(axis=1), m.std(axis=1), marker=".", label="Simulation", color="red")

@@ -1,4 +1,5 @@
 from numba.typed import Dict
+import pandas as pd
 from numba import types
 import numpy as np
 import pickle
@@ -73,6 +74,25 @@ def load_data(parameters, iteration: int):
     return pickle.load(open(f"data/iterM{m_0}A{alpha}B{b}L{lambd}I{iteration}.pkl", "rb"))
 
 
+def load_sim(parameters):
+    """Load the simulation data from file
+
+    Args:
+        parameters (dict): parameter dictionary
+
+    Returns:
+        _type_: _description_
+    """
+    m_0 = parameters["m_0"]
+    alpha = parameters["alpha"]
+    b = parameters["b"]
+    lambd = parameters["lambd"]
+    dt = parameters["dt"]
+    D = parameters["D"]
+
+    return pd.read_csv(f"data/simulationM{m_0}A{alpha}B{b}L{lambd}E{dt}D{D}.csv").to_numpy()[:, 1:]
+
+
 def save_data(store_data: list, parameters, iteration: int):
     """Save the data to file
 
@@ -107,3 +127,21 @@ def save_data(store_data: list, parameters, iteration: int):
     else:
         pickle.dump(dataSave, open(f"data/iterM{m_0}A{alpha}B{b}L{lambd}I{iteration}.pkl", "wb"))
     dataSave.clear()
+
+
+def save_sim(store_data: list, parameters):
+    """Save the simulation data to file
+
+    Args:
+        store_data (list): data to be saved in the file
+        parameters (dict): parameter dictionary
+    """
+
+    m_0 = parameters["m_0"]
+    alpha = parameters["alpha"]
+    b = parameters["b"]
+    lambd = parameters["lambd"]
+    dt = parameters["dt"]
+    D = parameters["D"]
+
+    pd.DataFrame(store_data).to_csv(f"data/simulationM{m_0}A{alpha}B{b}L{lambd}E{dt}D{D}.csv")

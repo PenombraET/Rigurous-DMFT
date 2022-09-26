@@ -9,14 +9,14 @@ if __name__ == "__main__":
     ut.set_seed(comm)
 
     parameters = ut.init_parameters()
-    parameters["m_0"] = 0.2
-    parameters["alpha"] = 3
+    parameters["m_0"] = 0.025
+    parameters["alpha"] = 0.9
     parameters["b"] = 1.0
-    parameters["lambd"] = 0.5
-    parameters["dt"] = 0.1
+    parameters["lambd"] = 1.0
+    parameters["dt"] = 0.04
     parameters["T"] = 50
     parameters["n_samples"] = 10000
-    parameters["damping"] = 0.7
+    parameters["damping"] = 0.55
     parameters["n_iterations"] = 30
 
     ut.clean_log(comm)

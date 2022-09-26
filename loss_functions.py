@@ -14,7 +14,7 @@ def nu(h: float, h_0: float) -> float:
         float: loss value
     """
 
-    return (h - h_0) ** 2 / 2
+    return np.log(1 + np.exp(-np.sign(h) * np.sign(h_0)))
 
 
 @njit(fastmath=True)
@@ -29,7 +29,7 @@ def d_nu(h: float, h_0: float) -> float:
         float: value of derivative of loss
     """
 
-    return h - h_0
+    return -np.sign(h_0) / (np.exp(np.sign(h) * np.sign(h_0)) + 1)
 
 
 @njit(fastmath=True)
@@ -44,7 +44,7 @@ def dd_nu(h: float, h_0: float) -> float:
         float: value of second derivative of loss
     """
 
-    return 1
+    return np.sign(h_0) ** 2 * np.exp(np.sign(h) * np.sign(h_0)) / (np.exp(np.sign(h) * np.sign(h_0)) + 1) ** 2
 
 
 @njit(fastmath=True)
